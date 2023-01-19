@@ -1,12 +1,17 @@
 from flask import Blueprint
-
+from . import vending_db
+from bson.json_util import dumps, loads
 views = Blueprint('views', __name__)
 
+collection = vending_db.vending_machines
 
 #Returns list of vending machines, list of stock products
 @views.route('/')
 def home():
-    return 'hello'
+    vending_machine = collection.find()
+    list_vending = list(vending_machine)
+    json_data = dumps(list_vending, indent = 2)
+    return(json_data)
 
 #Adds a new vending machine
 @views.route('/addvending', methods=['POST'])

@@ -1,0 +1,32 @@
+[
+    {
+    "name": "Cold Drinks Treasure",
+    "location": "Old building",
+    "stock": {
+    "Coke": 10,
+    "Sprite": 15,
+    "Aura Water": 7,
+    "Singha Water": 6,
+    "Fanta (Orange)": 5,
+    "Fanta (Red)": 4,
+    "Mountain Dew": 11,
+    "Yakult": 12,
+    "Meiji Milk (Chocolate)": 11
+    }
+    },
+    {
+    "name": "Cold Drinks Treasure",
+    "location": "New building",
+    "stock": {
+    "Coke": 10,
+    "Sprite": 11,
+    "Aura Water": 5,
+    "Singha Water": 7,
+    "Fanta (Orange)": 10,
+    "Fanta (Red)": 20,
+    "Mountain Dew": 14,
+    "Yakult": 11,
+    "Meiji Milk (Chocolate)": 12
+    }
+    }
+    ]
