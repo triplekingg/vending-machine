@@ -7,3 +7,11 @@ Sets the environment path to the virtual environment.
 
 ### `python3 main.py`
 Launches the mock backend server on port 8000 by default. You may change the port in main.py 
+
+## Checklists
+Create Vending Machine
+List Vending machines
+Update Vending Machine
+Delete Vending Machine
+Update and Delete Stock
+List Stock for Vending Machine
