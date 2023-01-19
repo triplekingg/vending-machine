@@ -40,12 +40,18 @@ def showVending(oid):
         return "Error"
 
 #Deletes a vending machine
-@views.route('/deletevending', methods=['POST'])
+@views.route('/deletevending/', methods=['POST'])
 def deleteVendingMachine():
-    pass
+    try:
+        oid = request.json["oid"]
+        collection.delete_one({"_id": ObjectId(oid)}) 
+        return "Successfully deleted"
+    except:
+        return "Error"
+
 
 #Updates a vending machine name and location
-@views.route('/editvending/', methods=['POST'])
+@views.route('/updatevending/', methods=['POST'])
 def editVendingMachineById():
     try:
         oid = request.json["oid"]
@@ -57,27 +63,30 @@ def editVendingMachineById():
         # Convert the vending machine to a JSON object
         # json_data = dumps(vending_machine)
         # Return the JSON object
-        return 'Successfully edited'
+        return 'Successfully updated'
     except:
         return 'Error'
 
 #Updates stock of the vending machine of which the id belongs to
 @views.route('/updatestock/', methods=['POST'])
 def updateStock():
-    # Get the oid and stock data from the request body
-    oid = request.json["oid"]
-    stock = request.json["stock"]
+    try:
+        # Get the oid and stock data from the request body
+        oid = request.json["oid"]
+        stock = request.json["stock"]
 
-    # iterate through the stock dictionary
-    for key, value in stock.items():
-        # update the vending machine stock
-        collection.update_one({"_id": ObjectId(oid)}, {'$set': {"stock."+key: value}})
+        # iterate through the stock dictionary
+        for key, value in stock.items():
+            # update the vending machine stock
+            collection.update_one({"_id": ObjectId(oid)}, {'$set': {"stock."+key: value}})
 
-    # Find the vending machine with the matching _id
-    vending_machine = collection.find_one({"_id": ObjectId(oid)})
+        # Find the vending machine with the matching _id
+        # vending_machine = collection.find_one({"_id": ObjectId(oid)})
 
-    # Convert the vending machine to a JSON object
-    json_data = dumps(vending_machine)
+        # Convert the vending machine to a JSON object
+        # json_data = dumps(vending_machine)
 
-    # Return the JSON object
-    return json_data
+        # Return the JSON object
+        return "Success"
+    except:
+        return "Failed"
