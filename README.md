@@ -9,9 +9,15 @@ Sets the environment path to the virtual environment.
 Launches the mock backend server on port 8000 by default. You may change the port in main.py 
 
 ## Checklists
-Create Vending Machine
+Create Vending Machine  
+<br />
 List Vending machines
+ <br />
 Update Vending Machine
+ <br />
 Delete Vending Machine
+ <br />
 Update and Delete Stock
+ <br />
 List Stock for Vending Machine
+ <br />
