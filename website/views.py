@@ -21,8 +21,11 @@ def addVendingMachine():
         # Get the vending machine data from the request body
         vending_data = request.json
         # Insert the vending machine data into the collection
-        collection.insert_one(vending_data)
-        return "Successfully added new vending machine"
+        id = collection.insert_one(vending_data).inserted_id
+        vending_machine = collection.find_one({"_id": ObjectId(id)})
+        json_data = dumps(vending_machine)
+        return(json_data)
+        # return "Successfully added new vending machine"
     except:
         return "Failed to add new vending machine"
 
