@@ -1,6 +1,7 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from . import vending_db
 from bson.json_util import dumps, loads
+from bson import ObjectId
 views = Blueprint('views', __name__)
 
 collection = vending_db.vending_machines
@@ -17,6 +18,17 @@ def home():
 @views.route('/addvending', methods=['POST'])
 def addVendingMachine():
     pass
+
+#Returns vending machine that the id belongs to
+@views.route('/showvending/<string:oid>', methods=['GET'])
+def showVending(oid): 
+    try:
+        # oid = request.json["oid"]
+        vending_machine = collection.find_one({"_id": ObjectId(oid)})
+        json_data = dumps(vending_machine)
+        return(json_data)
+    except:
+        return "Error"
 
 #Deletes a vending machine
 @views.route('/deletevending', methods=['POST'])
