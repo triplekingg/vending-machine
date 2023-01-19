@@ -41,6 +41,13 @@ def showVending(oid):
     except:
         return "Error"
 
+@views.route('/showstock/<string:oid>', methods=['GET'])
+def showStock(oid): 
+        # oid = request.json["oid"]
+        vending_machine = collection.find_one({"_id": ObjectId(oid)})
+        json_data = dumps(vending_machine['stock'])
+        return(json_data)
+
 #Deletes a vending machine
 @views.route('/deletevending/', methods=['POST'])
 def deleteVendingMachine():
