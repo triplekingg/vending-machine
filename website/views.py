@@ -22,7 +22,6 @@ def addVendingMachine():
         vending_data = request.json
         # Insert the vending machine data into the collection
         collection.insert_one(vending_data)
-        # Return the JSON object
         return "Successfully added new vending machine"
     except:
         return "Failed to add new vending machine"
@@ -61,9 +60,10 @@ def editVendingMachineById():
         collection.update_one({"_id": ObjectId(oid)}, {'$set': {'name': name, 'location': location}})
         vending_machine = collection.find_one({"_id": ObjectId(oid)})
         # Convert the vending machine to a JSON object
-        # json_data = dumps(vending_machine)
+        json_data = dumps(vending_machine)
         # Return the JSON object
-        return 'Successfully updated'
+        return(json_data)
+        # return 'Successfully updated'
     except:
         return 'Error'
 
@@ -80,14 +80,16 @@ def updateStock():
             # update the vending machine stock
             collection.update_one({"_id": ObjectId(oid)}, {'$set': {"stock."+key: value}})
 
+        #Uncomment below to return json
         # Find the vending machine with the matching _id
-        # vending_machine = collection.find_one({"_id": ObjectId(oid)})
+        vending_machine = collection.find_one({"_id": ObjectId(oid)})
 
         # Convert the vending machine to a JSON object
-        # json_data = dumps(vending_machine)
+        json_data = dumps(vending_machine)
 
         # Return the JSON object
-        return "Success"
+        return(json_data)
+        # return "Success"
     except:
         return "Failed"
 
