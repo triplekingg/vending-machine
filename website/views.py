@@ -41,6 +41,7 @@ def showVending(oid):
     except:
         return "Error"
 
+#Returns stock of vending machine that the id belongs to
 @views.route('/showstock/<string:oid>', methods=['GET'])
 def showStock(oid): 
         # oid = request.json["oid"]
