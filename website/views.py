@@ -15,9 +15,21 @@ def home():
     return(json_data)
 
 #Adds a new vending machine
-@views.route('/addvending', methods=['POST'])
+@views.route('/addvending/', methods=['POST'])
 def addVendingMachine():
-    pass
+    try:
+        # Get the vending machine data from the request body
+        vending_data = request.json
+
+        # Insert the vending machine data into the collection
+        collection.insert_one(vending_data)
+
+        # Return the JSON object
+        return "Successfully added new vending machine"
+
+    except:
+        return "Failed to add new vending machine"
+
 
 #Returns vending machine that the id belongs to
 @views.route('/showvending/<string:oid>', methods=['GET'])
