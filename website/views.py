@@ -67,7 +67,7 @@ def editVendingMachineById():
     except:
         return 'Error'
 
-#Updates stock of the vending machine of which the id belongs to
+#Updates or Adds stock of the vending machine of which the id belongs to
 @views.route('/updatestock/', methods=['POST'])
 def updateStock():
     try:
@@ -87,6 +87,19 @@ def updateStock():
         # json_data = dumps(vending_machine)
 
         # Return the JSON object
+        return "Success"
+    except:
+        return "Failed"
+
+#Removes stock of the vending machine of which the id belongs to
+@views.route('/deletestock/', methods=['POST'])
+def deleteStock():
+    try:
+        # Get the oid and stock data from the request body
+        oid = request.json["oid"]
+        item_name = request.json["item_name"]
+        # Delete item
+        collection.update_one({"_id": ObjectId(oid)}, {'$unset': {"stock."+item_name: ""}})
         return "Success"
     except:
         return "Failed"
