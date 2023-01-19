@@ -47,6 +47,7 @@ def deleteVendingMachine():
 #Updates a vending machine name and location
 @views.route('/editvending/', methods=['POST'])
 def editVendingMachineById():
+    try:
         oid = request.json["oid"]
         name = request.json["name"]
         location = request.json["location"]
@@ -54,8 +55,29 @@ def editVendingMachineById():
         collection.update_one({"_id": ObjectId(oid)}, {'$set': {'name': name, 'location': location}})
         vending_machine = collection.find_one({"_id": ObjectId(oid)})
         # Convert the vending machine to a JSON object
-        json_data = dumps(vending_machine)
+        # json_data = dumps(vending_machine)
         # Return the JSON object
-        return json_data
+        return 'Successfully edited'
+    except:
+        return 'Error'
 
+#Updates stock of the vending machine of which the id belongs to
+@views.route('/updatestock/', methods=['POST'])
+def updateStock():
+    # Get the oid and stock data from the request body
+    oid = request.json["oid"]
+    stock = request.json["stock"]
 
+    # iterate through the stock dictionary
+    for key, value in stock.items():
+        # update the vending machine stock
+        collection.update_one({"_id": ObjectId(oid)}, {'$set': {"stock."+key: value}})
+
+    # Find the vending machine with the matching _id
+    vending_machine = collection.find_one({"_id": ObjectId(oid)})
+
+    # Convert the vending machine to a JSON object
+    json_data = dumps(vending_machine)
+
+    # Return the JSON object
+    return json_data
