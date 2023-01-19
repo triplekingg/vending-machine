@@ -20,13 +20,10 @@ def addVendingMachine():
     try:
         # Get the vending machine data from the request body
         vending_data = request.json
-
         # Insert the vending machine data into the collection
         collection.insert_one(vending_data)
-
         # Return the JSON object
         return "Successfully added new vending machine"
-
     except:
         return "Failed to add new vending machine"
 
@@ -47,7 +44,18 @@ def showVending(oid):
 def deleteVendingMachine():
     pass
 
-#Edits a vending machine details
-@views.route('/editvending', methods=['POST'])
-def editVendingMachine():
-    pass
+#Updates a vending machine name and location
+@views.route('/editvending/', methods=['POST'])
+def editVendingMachineById():
+        oid = request.json["oid"]
+        name = request.json["name"]
+        location = request.json["location"]
+        # update the vending machine
+        collection.update_one({"_id": ObjectId(oid)}, {'$set': {'name': name, 'location': location}})
+        vending_machine = collection.find_one({"_id": ObjectId(oid)})
+        # Convert the vending machine to a JSON object
+        json_data = dumps(vending_machine)
+        # Return the JSON object
+        return json_data
+
+
