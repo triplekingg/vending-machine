@@ -5,7 +5,7 @@ views = Blueprint('views', __name__)
 
 collection = vending_db.vending_machines
 
-#Returns list of vending machines, list of stock products
+#Returns list of vending machines along with their stock
 @views.route('/')
 def home():
     vending_machine = collection.find()

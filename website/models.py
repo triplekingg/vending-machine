@@ -1,15 +1,8 @@
-from . import db
+from . import vending_db
+import json
 
-
-
-class vendingmachine(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
-    location = db.Column(db.String(255))
-    stock = db.relationship('Stock', backref='vendingmachine', lazy=True)
-
-class Stock(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    item_name = db.Column(db.String(255))
-    vending_machine_id = db.Column(db.Integer, db.ForeignKey('vendingmachine.id'), nullable=False)
-
+def initializeVengingMachines():
+    collection = vending_db.vending_machines
+    with open('website/data.json') as file:
+        test_document = json.load(file)
+    collection.insert_many(test_document)

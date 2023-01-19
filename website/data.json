@@ -1,7 +1,7 @@
 [
     {
     "name": "Cold Drinks Treasure",
-    "location": "Old building",
+    "location": "Old building 1st Floor",
     "stock": {
     "Coke": 10,
     "Sprite": 15,
@@ -16,7 +16,7 @@
     },
     {
     "name": "Cold Drinks Treasure",
-    "location": "New building",
+    "location": "New building 1st Floor",
     "stock": {
     "Coke": 10,
     "Sprite": 11,
@@ -28,5 +28,65 @@
     "Yakult": 11,
     "Meiji Milk (Chocolate)": 12
     }
-    }
+    },
+    {
+        "name": "Snacks Yum",
+        "location": "Old Building 1st Floor",
+        "stock": {
+        "Taro": 10,
+        "Pockey": 11,
+        "Taokaenoi": 5,
+        "Lays": 7,
+        "Potato Chips": 10,
+        "Paprika": 20,
+        "Peanuts": 14,
+        "Roller Coaster": 11,
+        "Cheetos": 12
+        }
+        },
+    {
+        "name": "Snacks Yum",
+        "location": "Old Building 2nd Floor",
+        "stock": {
+        "Taro": 10,
+        "Pockey": 11,
+        "Taokaenoi": 5,
+        "Lays": 7,
+        "Potato Chips": 10,
+        "Paprika": 20,
+        "Peanuts": 14,
+        "Roller Coaster": 11,
+        "Cheetos": 12
+        }
+    },
+    {
+        "name": "Snacks Yum",
+        "location": "New Building 1st Floor",
+        "stock": {
+        "Taro": 12,
+        "Pockey": 4,
+        "Taokaenoi": 5,
+        "Lays": 15,
+        "Potato Chips": 23,
+        "Paprika": 21,
+        "Peanuts": 11,
+        "Roller Coaster": 4,
+        "Cheetos": 1
+        }
+        },
+        {
+            "name": "Snacks Yum",
+            "location": "New Building 2nd Floor",
+            "stock": {
+            "Taro": 1,
+            "Pockey": 2,
+            "Taokaenoi": 31,
+            "Lays": 2,
+            "Potato Chips": 1,
+            "Paprika": 23,
+            "Peanuts": 21,
+            "Roller Coaster": 31,
+            "Cheetos": 11
+            }
+        }
     ]

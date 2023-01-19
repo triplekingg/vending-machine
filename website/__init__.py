@@ -27,22 +27,13 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     
-    insert_vending()
+    initializeVengingMachines()
     
     return app
 
-def insert_vending():
+
+def initializeVengingMachines():
     collection = vending_db.vending_machines
     with open('website/data.json') as file:
         test_document = json.load(file)
     collection.insert_many(test_document)
-      
-
-
-    
-
-# def create_database(app):
-#     if not path.exists('website/' + DB_NAME):
-#         with app.app_context():
-#             db.create_all()
-#         print('Created Database!')
