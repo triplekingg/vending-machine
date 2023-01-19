@@ -10,7 +10,6 @@ Launches the mock backend server on port 8000 by default. You may change the por
 
 ## Checklists
 Create Vending Machine  
-<br />
 List Vending machines
  <br />
 Update Vending Machine
