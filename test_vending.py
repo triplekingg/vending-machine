@@ -36,6 +36,27 @@ def test_can_update_vending():
     assert update_vending_response.status_code == 200
     
 
+def test_can_show_vending():
+    #Add a vending machines
+    payload = new_vending_payload()
+    add_vending_response = create_vending(payload)
+    assert add_vending_response.status_code == 200
+    machine_id = add_vending_response.json()['_id']['$oid']
+    
+    show_vending_response = get_vending(machine_id)
+    assert show_vending_response.status_code == 200
+
+def test_can_delete_vending():
+   #Add a vending machine
+    payload = new_vending_payload()
+    add_vending_response = create_vending(payload)
+    assert add_vending_response.status_code == 200
+    machine_id = add_vending_response.json()['_id']['$oid']
+    
+    #Delete the vending machine
+    show_vending_response = delete_vending(machine_id)
+    assert show_vending_response.status_code == 200 
+
 
 
 
@@ -43,10 +64,14 @@ def create_vending(payload):
     return requests.post(ENDPOINT +'addvending/', json=payload)
 
 def get_vending(machine_id):
-    return requests.get(ENDPOINT + f"/showvending/{machine_id}") 
+    return requests.get(ENDPOINT + f"showvending/{machine_id}") 
 
 def update_vending(payload):
-    return requests.post(ENDPOINT +'updatevending/', json=payload) 
+    return requests.post(ENDPOINT +'updatevending/', json=payload)
+
+def delete_vending(machine_id):
+    payload = {"oid": machine_id}
+    return requests.post(ENDPOINT +'deletevending/', json=payload)  
 
 def new_vending_payload():
     return {"name": "Cold Drinks Test",
