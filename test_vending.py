@@ -19,14 +19,34 @@ def test_can_add_vending_machine():
     assert get_vending_response.status_code == 200
 
 def test_can_update_vending():
-    pass
+    #add a vending machine
+    payload = new_vending_payload()
+    add_vending_response = create_vending(payload)
+    assert add_vending_response.status_code == 200
+    machine_id = add_vending_response.json()['_id']['$oid'] 
+    
+
+    #update the vending machine
+    new_payload = {
+    "oid": machine_id,
+    "name": "Cold Drinks Test Update",
+    "location": "Updated Floor"
+    }
+    update_vending_response = update_vending(new_payload)
+    assert update_vending_response.status_code == 200
+    
+
+
 
 
 def create_vending(payload):
-    return requests.post(ENDPOINT +'addvending', json=payload)
+    return requests.post(ENDPOINT +'addvending/', json=payload)
 
 def get_vending(machine_id):
     return requests.get(ENDPOINT + f"/showvending/{machine_id}") 
+
+def update_vending(payload):
+    return requests.post(ENDPOINT +'updatevending/', json=payload) 
 
 def new_vending_payload():
     return {"name": "Cold Drinks Test",
