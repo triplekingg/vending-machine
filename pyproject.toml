@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "vending2-0"
+version = "0.1.0"
+description = "Api for vending machines in MUIC"
+authors = ["Manit Gandhi <tripleking123@gmail.com>"]
+readme = "README.md"
+packages = [{include = "vending2"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
