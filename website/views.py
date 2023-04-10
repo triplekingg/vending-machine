@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from . import vending_db
 from bson.json_util import dumps, loads
 from bson import ObjectId
+import datetime
 
 views = Blueprint("views", __name__)
 
@@ -22,8 +23,16 @@ def addVendingMachine():
     try:
         # Get the vending machine data from the request body
         vending_data = request.json
+
+        # # Get the current time
+        current_time = datetime.now().strftime("%Y%m%d%H%M%S")
+
+        # # Add the current time as an attribute in the vending machine data
+        vending_data["latest_time"] = current_time
+
         # Insert the vending machine data into the collection
         id = collection.insert_one(vending_data).inserted_id
+
         vending_machine = collection.find_one({"_id": ObjectId(id)})
         json_data = dumps(vending_machine)
         return json_data
@@ -45,7 +54,6 @@ def showVending(oid):
 # Returns stock of vending machine that the id belongs to
 @views.route("/showstock/<string:oid>", methods=["GET"])
 def showStock(oid):
-    # oid = request.json["oid"]
     vending_machine = collection.find_one({"_id": ObjectId(oid)})
     json_data = dumps(vending_machine["stock"])
     return json_data
@@ -69,16 +77,33 @@ def editVendingMachineById():
         oid = request.json["oid"]
         name = request.json["name"]
         location = request.json["location"]
-        # update the vending machine
-        collection.update_one(
-            {"_id": ObjectId(oid)}, {"$set": {"name": name, "location": location}}
-        )
+        current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+        # Check if the history document exists
         vending_machine = collection.find_one({"_id": ObjectId(oid)})
-        # Convert the vending machine to a JSON object
-        json_data = dumps(vending_machine)
-        # Return the JSON object
-        return json_data
-        # return 'Successfully updated'
+        old_name = vending_machine["name"]
+        old_location = vending_machine["location"]
+        old_time = vending_machine["latest_time"]
+        print(old_time)
+        # Update the details of the vending machine
+        collection.update_one(
+            {"_id": ObjectId(oid)},
+            {
+                "$set": {
+                    "name": name,
+                    "location": location,
+                    "latest_time": current_time,
+                    "history": {
+                        f"{old_time}": {"name": old_name, "location": old_location}
+                    },
+                }
+            },
+        )
+        # collection.insert_one(
+        #     {"_id": ObjectId(oid)},
+        #     {'history': {f"{old_time}" :{"name": old_name, "location": old_location}}}
+        # )
+        # Return success message
+        return "Successfully updated"
     except:
         return "Error"
 

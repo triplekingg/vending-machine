@@ -1,0 +1,121 @@
+openapi: '3.0.2'
+info:
+  title: API Title
+  version: '1.0'
+servers:
+  - url: https://api.server.test/v1
+paths:
+  /showvending/<object_id>:
+    get:
+      summary: Get details for a vending machine
+      operationId: getVending
+      requestBody:
+        content:
+          x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Vending_Machine'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vending_Machine'
+      responses:
+        '201':
+          description: retrieved vending machine detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vending_Machine'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vending_Machine'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vending_Machine'
+  /showstock/<object-id>/:
+    get:
+      summary: Get details for a stock of a particular vending machine.
+      operationId: getStock
+      requestBody:
+        content:
+          x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Stock'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Stock'
+      responses:
+        '201':
+          description: retrieved stock detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stock'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stock'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stock'
+
+
+  /addvending:
+    post:
+      summary: Add a vending machine
+      operationId: addVending
+      requestBody:
+        content:
+          x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Vending_Machine'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vending_Machine'
+      responses:
+        '200':
+          description: Successfullu created vending machine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vending_Machine'
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vending_Machine'
+
+components:
+  schemas:
+    Vending_Machine:
+      type: object
+      properties:
+        _id:
+          type: object
+          properties:
+            $oid:
+              type: string
+        name:
+          type: string
+        location:
+          type: string
+        stock:
+          type: object
+          properties:
+            item:
+              type: integer
+    Stock:
+      type: object
+      properties:
+          item:
+            type: integer
